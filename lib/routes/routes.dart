@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:programa_1/screens/screens.dart';
+import 'package:aplicacion_final_1/routes/screens.dart';
 
 class AppRoutes {
   static final List<Widget> paginas = [

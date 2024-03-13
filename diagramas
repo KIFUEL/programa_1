@@ -1,0 +1,117 @@
+@startuml
+set namespaceSeparator ::
+
+class "aplicacion_final_1::main.dart::MyApp" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "aplicacion_final_1::main.dart::MyApp"
+
+class "aplicacion_final_1::routes::routes.dart::AppRoutes" {
+  {static} +List<Widget> paginas
+}
+
+class "aplicacion_final_1::screens::Activities::actividades_screen.dart::ActividadesScreen" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "aplicacion_final_1::screens::Activities::actividades_screen.dart::ActividadesScreen"
+
+class "aplicacion_final_1::screens::Activities::piramide_flame.dart::PiramideFlame" {
+  +Size pantalla
+  +FutureOr<void> onLoad()
+}
+
+"aplicacion_final_1::screens::Activities::piramide_flame.dart::PiramideFlame" o-- "dart::ui::Size"
+"flame::src::game::flame_game.dart::FlameGame" <|-- "aplicacion_final_1::screens::Activities::piramide_flame.dart::PiramideFlame"
+
+class "aplicacion_final_1::screens::Activities::piramide_flame.dart::BotonSprite" {
+}
+
+"flame::src::components::input::sprite_button_component.dart::SpriteButtonComponent" <|-- "aplicacion_final_1::screens::Activities::piramide_flame.dart::BotonSprite"
+
+class "aplicacion_final_1::screens::Activities::piramide_screen.dart::PiramideScreen" {
+  +State<PiramideScreen> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "aplicacion_final_1::screens::Activities::piramide_screen.dart::PiramideScreen"
+
+class "aplicacion_final_1::screens::Activities::piramide_screen.dart::_PiramideScreenState" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "aplicacion_final_1::screens::Activities::piramide_screen.dart::_PiramideScreenState"
+
+class "aplicacion_final_1::screens::area_played.dart::PlayArea" {
+  +Size pantalla
+  +FutureOr<void> onLoad()
+}
+
+"aplicacion_final_1::screens::area_played.dart::PlayArea" o-- "dart::ui::Size"
+"flame::src::geometry::rectangle_component.dart::RectangleComponent" <|-- "aplicacion_final_1::screens::area_played.dart::PlayArea"
+"flame::src::components::mixins::has_game_reference.dart::HasGameReference" <|-- "aplicacion_final_1::screens::area_played.dart::PlayArea"
+
+class "aplicacion_final_1::screens::Configuration::configuracion_screen.dart::ConfiguracionScreen" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "aplicacion_final_1::screens::Configuration::configuracion_screen.dart::ConfiguracionScreen"
+
+class "aplicacion_final_1::screens::Configuration::edit_perfil.dart::EditPerfilScreen" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "aplicacion_final_1::screens::Configuration::edit_perfil.dart::EditPerfilScreen"
+
+class "aplicacion_final_1::screens::home::home_scree.dart::HomeScreen" {
+  +State<HomeScreen> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "aplicacion_final_1::screens::home::home_scree.dart::HomeScreen"
+
+class "aplicacion_final_1::screens::home::home_scree.dart::_HomeScreenState" {
+  +int indexActual
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "aplicacion_final_1::screens::home::home_scree.dart::_HomeScreenState"
+
+class "aplicacion_final_1::screens::Top::top_screen.dart::TopScreen" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "aplicacion_final_1::screens::Top::top_screen.dart::TopScreen"
+
+class "aplicacion_final_1::themes::app_theme.dart::AppTheme" {
+  {static} +Color primary
+  {static} +Color secondary
+  {static} +ThemeData incialTheme
+}
+
+"aplicacion_final_1::themes::app_theme.dart::AppTheme" o-- "dart::ui::Color"
+"aplicacion_final_1::themes::app_theme.dart::AppTheme" o-- "flutter::src::material::theme_data.dart::ThemeData"
+
+class "aplicacion_final_1::widgets::custom_card_1.dart::CustomCardType1" {
+  +String titulo
+  +String description
+  +String inicio
+  +String fin
+  +String tipo
+  +IconData? icono
+  +Widget build()
+}
+
+"aplicacion_final_1::widgets::custom_card_1.dart::CustomCardType1" o-- "flutter::src::widgets::icon_data.dart::IconData"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "aplicacion_final_1::widgets::custom_card_1.dart::CustomCardType1"
+
+class "aplicacion_final_1::widgets::custom_navigation_bar.dart::CustomBottonNavigationBar" {
+  +int indexActual
+  +dynamic Function(int) onTap
+  +Widget build()
+}
+
+"aplicacion_final_1::widgets::custom_navigation_bar.dart::CustomBottonNavigationBar" o-- "null::dynamic Function(int)"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "aplicacion_final_1::widgets::custom_navigation_bar.dart::CustomBottonNavigationBar"
+
+
+@enduml

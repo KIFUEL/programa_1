@@ -1,7 +1,6 @@
+import 'package:aplicacion_final_1/screens/home/home_scree.dart';
+import 'package:aplicacion_final_1/themes/app_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:programa_1/themes/app_theme.dart';
-
-import 'screens/screens.dart';
 
 void main() => runApp(const MyApp());
 
