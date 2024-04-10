@@ -10,6 +10,8 @@ class buttonSpriteSlot extends SpriteButtonComponent {
   int index;
   int value=0;
   bool isSet=false;
+  Color colores = Colors.white;
+
 
   late TextComponent btSlotText;
 
@@ -29,9 +31,13 @@ class buttonSpriteSlot extends SpriteButtonComponent {
   ){
     add(
       AlignComponent(
-        child: btSlotText=TextComponent(text: '000',anchor:Anchor.center),
+        child: btSlotText=TextComponent(
+          text: '000',
+        anchor:Anchor.center,
+        textRenderer: TextPaint(style: TextStyle(color: colores, fontSize: 25 ))),
         alignment: Anchor.center,
         keepChildAnchor: true,
+        
       ),
     );
   }

@@ -144,21 +144,43 @@ class PiramideFlame extends FlameGame {
 
        
     final listaNumeros = List<int>.filled(15, 000);
-      listaNumeros[3] = Random().nextInt(200 - 100 + 1) + 100;
-      listaNumeros[6] = Random().nextInt(400 - 301 + 1) + 301;
-      listaNumeros[11] = Random().nextInt(800 - 601 + 1) + 601;
-      listaNumeros[12] = Random().nextInt(1100 - 901 + 1) + 901;
+    for(var i = 0; i < 5; i++){
+      listaNumeros[i] = Random().nextInt(400 - 1 + 1) + 1; 
+    }
+
+    numberSlot[3].isSet = true;
+    numberSlot[3].colores = Colors.black;
+    numberSlot[6].isSet = true;
+    numberSlot[11].isSet = true;
+    numberSlot[12].isSet = true;
+
+      for(var i = 0, j = 5; i < 13 ; i++){
+
+        if (i == 4 || i == 8 || i == 11  ) {
+          j = j - 1;
+          i = i + 1;
+        }
+
+        listaNumeros[i+j] = listaNumeros[i] + listaNumeros[i+1];
+      }
+
 
       numberSlot[15].btSlotText.text = "OK";
       numberSlot[16].btSlotText.text = "<x";
       numberSlot[16].onPressed = (){
+
+        if (numerosEscritos.isNotEmpty ){
+        
         numerosEscritos = numerosEscritos.substring(0,numerosEscritos.length - 1);
+        contador.text = numerosEscritos;
         print(numerosEscritos);
+        }
+
+        
       };
        numberSlot[15].onPressed = (){
         for(var i = 0; i < 15; i++){
             listaNumeros[i] = int.parse(numberSlot[i].btSlotText.text);
-            
         }
 
         int j = 5;
@@ -179,21 +201,24 @@ class PiramideFlame extends FlameGame {
         print(listaNumeros);
        };
 
-    for(var i = 0; i < 15; i++) {
-      numberSlot[i].btSlotText.text = listaNumeros[i].toString();
-      if (listaNumeros[i] == 0){
-          numberSlot[i].isSet = true;
+    for(var i = 0; i < 15; i++) { 
+      if(numberSlot[i].isSet == true){
+          numberSlot[i].btSlotText.text = listaNumeros[i].toString();
       }
+
       numberSlot[i].onPressed=(){
 
-if(numberSlot[i].isSet == true){
-      if (contador.text != '') {
-        numberSlot[i].btSlotText.text = contador.text;
-        numerosEscritos = '';
-        contador.text = numerosEscritos;
-       
-      } 
-}
+        if (numberSlot[i].isSet != true){
+             if(contador.text.isNotEmpty){
+                numberSlot[i].btSlotText.text = contador.text;
+                numerosEscritos = '';
+                contador.text = numerosEscritos;
+              }
+
+        }
+        
+     
+
 
     };
     }
