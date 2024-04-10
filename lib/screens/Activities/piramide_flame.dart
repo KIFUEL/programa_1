@@ -12,7 +12,7 @@ class PiramideFlame extends FlameGame {
   List<buttonSpriteIO> numberBtns = [];
   
   late TextComponent contador;
-  String numerosEscritos = '00';
+  String numerosEscritos = '';
   final Size pantalla;
   PiramideFlame(this.pantalla)
       : super(
@@ -27,7 +27,7 @@ class PiramideFlame extends FlameGame {
     super.onLoad();
 
 
-    final regex = RegExp(r'\d{3}');
+    final regex = RegExp(r'\d{4}');
     camera.viewfinder.anchor = Anchor.topLeft;
     world.add(PlayArea(pantalla));
 
@@ -101,8 +101,12 @@ class PiramideFlame extends FlameGame {
           index: index+1,
         ));
 
+        
+
         world.add(numberSlot[index]);
         index++;
+
+
         
       }
     }
@@ -120,7 +124,17 @@ class PiramideFlame extends FlameGame {
           index: index+1,
         ));
 
+         numberSlot.add(buttonSpriteSlot(
+          spriteNormal: normalSprite,
+          spritePulsado: pressedSprite,
+          onPressed: (){},
+          position: Vector2(350,450),
+          size: buttonSize,
+          index: index+1,
+        ));
+
          world.add(numberSlot[15]);
+         world.add(numberSlot[16]);
     init();
   }
 
@@ -130,15 +144,37 @@ class PiramideFlame extends FlameGame {
 
        
     final listaNumeros = List<int>.filled(15, 000);
-      listaNumeros[3] = Random().nextInt(900) + 100;
-      listaNumeros[6] = Random().nextInt(900) + 100;
-      listaNumeros[11] = Random().nextInt(900) + 100;
-      listaNumeros[12] = Random().nextInt(900) + 100;
+      listaNumeros[3] = Random().nextInt(200 - 100 + 1) + 100;
+      listaNumeros[6] = Random().nextInt(400 - 301 + 1) + 301;
+      listaNumeros[11] = Random().nextInt(800 - 601 + 1) + 601;
+      listaNumeros[12] = Random().nextInt(1100 - 901 + 1) + 901;
 
       numberSlot[15].btSlotText.text = "OK";
+      numberSlot[16].btSlotText.text = "<x";
+      numberSlot[16].onPressed = (){
+        numerosEscritos = numerosEscritos.substring(0,numerosEscritos.length - 1);
+        print(numerosEscritos);
+      };
        numberSlot[15].onPressed = (){
         for(var i = 0; i < 15; i++){
             listaNumeros[i] = int.parse(numberSlot[i].btSlotText.text);
+            
+        }
+
+        int j = 5;
+        for(var i = 0; i < 13 ; i++){
+
+          if (i == 4 || i == 8 || i == 11  ) {
+            j = j - 1;
+            i = i + 1;
+          }
+
+          if(listaNumeros[i] + listaNumeros[i+1] == listaNumeros[i+j]  ){
+            print("bien");
+          }else{
+            print('mal');
+          }
+          
         }
         print(listaNumeros);
        };
