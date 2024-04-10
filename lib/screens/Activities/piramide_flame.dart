@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,7 @@ class PiramideFlame extends FlameGame {
   List<buttonSpriteIO> numberBtns = [];
   
   late TextComponent contador;
-  String numerosEscritos = '';
+  String numerosEscritos = '00';
   final Size pantalla;
   PiramideFlame(this.pantalla)
       : super(
@@ -28,7 +29,7 @@ class PiramideFlame extends FlameGame {
 
     final regex = RegExp(r'\d{3}');
     camera.viewfinder.anchor = Anchor.topLeft;
-    add(PlayArea(pantalla));
+    world.add(PlayArea(pantalla));
 
     final buttonSize = Vector2(
         pantalla.width * 0.173, 
@@ -38,7 +39,7 @@ class PiramideFlame extends FlameGame {
    
     contador = TextComponent(
         text: numerosEscritos,
-        position: Vector2(buttonSize.x + 100, buttonSize.y + 400),
+        position: Vector2(buttonSize.x + 100, buttonSize.y + 380),
         textRenderer: TextPaint(
             style: const TextStyle(fontSize: 40, color: Colors.black)));
     world.add(contador);
@@ -102,26 +103,62 @@ class PiramideFlame extends FlameGame {
 
         world.add(numberSlot[index]);
         index++;
+        
       }
     }
 
+
     debugMode = false;
+    final normalSprite = await Sprite.load('color 4.png');
+    final pressedSprite = await Sprite.load('Pboton.png');
+     numberSlot.add(buttonSpriteSlot(
+          spriteNormal: normalSprite,
+          spritePulsado: pressedSprite,
+          onPressed: (){},
+          position: Vector2(25,450),
+          size: buttonSize,
+          index: index+1,
+        ));
+
+         world.add(numberSlot[15]);
     init();
   }
 
 
 
   void init(){
-    for(buttonSpriteSlot x in numberSlot) {
-      x.onPressed=(){
+
+       
+    final listaNumeros = List<int>.filled(15, 000);
+      listaNumeros[3] = Random().nextInt(900) + 100;
+      listaNumeros[6] = Random().nextInt(900) + 100;
+      listaNumeros[11] = Random().nextInt(900) + 100;
+      listaNumeros[12] = Random().nextInt(900) + 100;
+
+      numberSlot[15].btSlotText.text = "OK";
+       numberSlot[15].onPressed = (){
+        for(var i = 0; i < 15; i++){
+            listaNumeros[i] = int.parse(numberSlot[i].btSlotText.text);
+        }
+        print(listaNumeros);
+       };
+
+    for(var i = 0; i < 15; i++) {
+      numberSlot[i].btSlotText.text = listaNumeros[i].toString();
+      if (listaNumeros[i] == 0){
+          numberSlot[i].isSet = true;
+      }
+      numberSlot[i].onPressed=(){
+
+if(numberSlot[i].isSet == true){
       if (contador.text != '') {
-        x.btSlotText.text = contador.text;
+        numberSlot[i].btSlotText.text = contador.text;
         numerosEscritos = '';
         contador.text = numerosEscritos;
-        x.isSet = true;
-      } else {
-        //print(textoBoton.text);
-      }
+       
+      } 
+}
+
     };
     }
   }
