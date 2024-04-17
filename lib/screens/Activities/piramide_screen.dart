@@ -14,9 +14,6 @@ class _PiramideScreenState extends State<PiramideScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Piramide'),
-      ),
       body: Center(
           child: GameWidget(game: PiramideFlame(MediaQuery.of(context).size))),
     );

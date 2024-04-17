@@ -10,10 +10,8 @@ class buttonSpriteSlot extends SpriteButtonComponent {
   int index;
   int value=0;
   bool isSet=false;
-  Color colores = Colors.white;
-
-
-  late TextComponent btSlotText;
+ // Color colores = Colors.white;
+ late TextComponent btSlotText;
 
   buttonSpriteSlot({
     required Sprite spriteNormal,
@@ -34,7 +32,7 @@ class buttonSpriteSlot extends SpriteButtonComponent {
         child: btSlotText=TextComponent(
           text: '000',
         anchor:Anchor.center,
-        textRenderer: TextPaint(style: TextStyle(color: colores, fontSize: 25 ))),
+        textRenderer: TextPaint(style: TextStyle(color: _getResultColor(index), fontSize: 25 ))),
         alignment: Anchor.center,
         keepChildAnchor: true,
         
@@ -47,6 +45,15 @@ class buttonSpriteSlot extends SpriteButtonComponent {
     super.onLoad();
 
   }
+  Color _getResultColor(index) {
+    Color myColor;
+    if(index==4 || index == 7|| index == 12|| index ==13){
+       myColor = Colors.red;
+    }else{
+      myColor = Colors.white;
+    }
+    return myColor;
+  }
 
   @override
   void render(Canvas canvas) {
@@ -55,6 +62,8 @@ class buttonSpriteSlot extends SpriteButtonComponent {
   }
 
 }
+
+
 
 
 

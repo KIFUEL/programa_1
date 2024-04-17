@@ -10,6 +10,9 @@ import 'button_spriteSlot.dart';
 class PiramideFlame extends FlameGame {
   List<buttonSpriteSlot> numberSlot = [];
   List<buttonSpriteIO> numberBtns = [];
+      final regex = RegExp(r'\d{4}');
+    final isLetras = RegExp(r'[a-zA-Z]');
+     final listaNumeros = List<int>.filled(15, 000);
   
   late TextComponent contador;
   String numerosEscritos = '';
@@ -27,7 +30,7 @@ class PiramideFlame extends FlameGame {
     super.onLoad();
 
 
-    final regex = RegExp(r'\d{4}');
+
     camera.viewfinder.anchor = Anchor.topLeft;
     world.add(PlayArea(pantalla));
 
@@ -39,7 +42,7 @@ class PiramideFlame extends FlameGame {
    
     contador = TextComponent(
         text: numerosEscritos,
-        position: Vector2(buttonSize.x + 100, buttonSize.y + 380),
+        position: Vector2(buttonSize.x + 100, buttonSize.y + 410),
         textRenderer: TextPaint(
             style: const TextStyle(fontSize: 40, color: Colors.black)));
     world.add(contador);
@@ -60,13 +63,21 @@ class PiramideFlame extends FlameGame {
         spriteNormal: normalSprite,
         spritePulsado: pressedSprite,
         onPressed: () {
-          if (regex.hasMatch(numerosEscritos) == false) {
+          if (isLetras.hasMatch(numerosEscritos) == false){
+              if (regex.hasMatch(numerosEscritos) == false) {
+
             numerosEscritos = numerosEscritos + i.toString();
             contador.text = numerosEscritos;
             print(numerosEscritos);
           }
+          }else{
+            numerosEscritos = '';
+            contador.text = numerosEscritos;
+            init();
+          }
+        
         },
-        position: Vector2(x, y),
+        position: Vector2(x, y + 30),
         size: buttonSize,
       ));
       world.add(numberBtns[i]);//numeros Inferiores
@@ -87,7 +98,7 @@ class PiramideFlame extends FlameGame {
 
         world.add(SpriteComponent(
           sprite: await Sprite.load('fondo.png'),
-          position: Vector2(x + 3, y - 4),
+          position: Vector2(x + 3, y + 26),
           size: Vector2(buttonSize.x, buttonSize.y),
         ));
 
@@ -96,7 +107,7 @@ class PiramideFlame extends FlameGame {
           spriteNormal: normalSprite,
           spritePulsado: pressedSprite,
           onPressed: (){},
-          position: Vector2(x, y),
+          position: Vector2(x, y + 30),
           size: buttonSize,
           index: index+1,
         ));
@@ -119,7 +130,7 @@ class PiramideFlame extends FlameGame {
           spriteNormal: normalSprite,
           spritePulsado: pressedSprite,
           onPressed: (){},
-          position: Vector2(25,450),
+          position: Vector2(104 + ((buttonSize.y) * -1),470),
           size: buttonSize,
           index: index+1,
         ));
@@ -128,13 +139,52 @@ class PiramideFlame extends FlameGame {
           spriteNormal: normalSprite,
           spritePulsado: pressedSprite,
           onPressed: (){},
-          position: Vector2(350,450),
+          position: Vector2(320,470),
           size: buttonSize,
           index: index+1,
         ));
 
          world.add(numberSlot[15]);
          world.add(numberSlot[16]);
+
+          numberSlot[15].onPressed = (){
+
+        if (isLetras.hasMatch(numerosEscritos) == false){
+           for(var i = 0; i < 15; i++){
+            listaNumeros[i] = int.parse(numberSlot[i].btSlotText.text);
+        }
+
+        int j = 5;
+        int resp_Corr = 0;
+        int resp_Erro = 0;
+        for(var i = 0; i < 13 ; i++){
+
+          if (i == 4 || i == 8 || i == 11  ) {
+            j = j - 1;
+            i = i + 1;
+          }
+
+          if(listaNumeros[i] + listaNumeros[i+1] == listaNumeros[i+j]  ){
+            resp_Corr = resp_Corr + 1; 
+            
+          }else{
+            resp_Erro = resp_Erro + 1;
+          }
+          
+        }
+        print(listaNumeros);
+
+         numerosEscritos = '$resp_Corr de 10';
+        contador.text = numerosEscritos;
+
+        }else{
+         numerosEscritos = '';
+         contador.text = numerosEscritos;
+         init(); 
+        }
+
+       
+       };
     init();
   }
 
@@ -142,14 +192,16 @@ class PiramideFlame extends FlameGame {
 
   void init(){
 
+    print("Generacion de numeros aleatorios");
+
        
-    final listaNumeros = List<int>.filled(15, 000);
+   
     for(var i = 0; i < 5; i++){
       listaNumeros[i] = Random().nextInt(400 - 1 + 1) + 1; 
+      //getResultColor(listaNumeros[i]);
     }
 
     numberSlot[3].isSet = true;
-    numberSlot[3].colores = Colors.black;
     numberSlot[6].isSet = true;
     numberSlot[11].isSet = true;
     numberSlot[12].isSet = true;
@@ -178,28 +230,7 @@ class PiramideFlame extends FlameGame {
 
         
       };
-       numberSlot[15].onPressed = (){
-        for(var i = 0; i < 15; i++){
-            listaNumeros[i] = int.parse(numberSlot[i].btSlotText.text);
-        }
-
-        int j = 5;
-        for(var i = 0; i < 13 ; i++){
-
-          if (i == 4 || i == 8 || i == 11  ) {
-            j = j - 1;
-            i = i + 1;
-          }
-
-          if(listaNumeros[i] + listaNumeros[i+1] == listaNumeros[i+j]  ){
-            print("bien");
-          }else{
-            print('mal');
-          }
-          
-        }
-        print(listaNumeros);
-       };
+      
 
     for(var i = 0; i < 15; i++) { 
       if(numberSlot[i].isSet == true){
@@ -207,8 +238,9 @@ class PiramideFlame extends FlameGame {
       }
 
       numberSlot[i].onPressed=(){
+        if(isLetras.hasMatch(numerosEscritos) == false){
 
-        if (numberSlot[i].isSet != true){
+          if (numberSlot[i].isSet != true){
              if(contador.text.isNotEmpty){
                 numberSlot[i].btSlotText.text = contador.text;
                 numerosEscritos = '';
@@ -216,6 +248,13 @@ class PiramideFlame extends FlameGame {
               }
 
         }
+
+        }else{
+          numerosEscritos = '';
+          contador.text = numerosEscritos;
+        }
+
+        
         
      
 
