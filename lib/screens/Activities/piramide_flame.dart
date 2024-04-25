@@ -11,7 +11,7 @@ class PiramideFlame extends FlameGame {
   List<buttonSpriteSlot> numberSlot = [];
   List<buttonSpriteIO> numberBtns = [];
       final regex = RegExp(r'\d{4}');
-    final isLetras = RegExp(r'[a-zA-Z]');
+    final isLetras = RegExp(r'[/]');
      final listaNumeros = List<int>.filled(15, 000);
   
   late TextComponent contador;
@@ -42,7 +42,7 @@ class PiramideFlame extends FlameGame {
    
     contador = TextComponent(
         text: numerosEscritos,
-        position: Vector2(buttonSize.x + 100, buttonSize.y + 410),
+        position: Vector2(buttonSize.x + 49, buttonSize.y + 410),
         textRenderer: TextPaint(
             style: const TextStyle(fontSize: 40, color: Colors.black)));
     world.add(contador);
@@ -174,10 +174,37 @@ class PiramideFlame extends FlameGame {
         }
         print(listaNumeros);
 
-         numerosEscritos = '$resp_Corr de 10';
+
+        if (resp_Corr == 0 ){
+           numerosEscritos = '🤮 $resp_Corr/10';
+
+        }else if(resp_Corr == 1){
+           numerosEscritos = '😤 $resp_Corr/10';
+        }else if(resp_Corr > 2){
+           numerosEscritos = '😭 $resp_Corr/10';
+
+        }else if(resp_Corr > 5){
+           numerosEscritos = '😒 $resp_Corr/10';
+
+        }else if(resp_Corr == 6 ){
+           numerosEscritos = '😪 $resp_Corr/10';
+
+        }else if(resp_Corr > 7){ 
+           numerosEscritos = '😑 $resp_Corr/10';
+
+        }else if(resp_Corr == 9){
+           numerosEscritos = '🫡 $resp_Corr/10';
+ 
+        }else if(resp_Corr == 10){
+           numerosEscritos = '🥳 $resp_Corr/10';
+
+        }
+        
         contador.text = numerosEscritos;
+        numberSlot[15].btSlotText.text = "🔝";
 
         }else{
+          
          numerosEscritos = '';
          contador.text = numerosEscritos;
          init(); 
@@ -217,8 +244,8 @@ class PiramideFlame extends FlameGame {
       }
 
 
-      numberSlot[15].btSlotText.text = "OK";
-      numberSlot[16].btSlotText.text = "<x";
+      numberSlot[15].btSlotText.text = "✔";
+      numberSlot[16].btSlotText.text = "🔙";
       numberSlot[16].onPressed = (){
 
         if (numerosEscritos.isNotEmpty ){
@@ -232,9 +259,12 @@ class PiramideFlame extends FlameGame {
       };
       
 
-    for(var i = 0; i < 15; i++) { 
+    for(var i = 0; i < 15; i++) {
+
       if(numberSlot[i].isSet == true){
           numberSlot[i].btSlotText.text = listaNumeros[i].toString();
+      }else{
+       numberSlot[i].btSlotText.text = '000'; 
       }
 
       numberSlot[i].onPressed=(){
