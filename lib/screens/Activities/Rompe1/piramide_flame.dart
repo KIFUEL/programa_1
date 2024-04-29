@@ -3,9 +3,9 @@ import 'dart:math';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import '../area_played.dart';
-import 'button_spriteIO.dart';
-import 'button_spriteSlot.dart';
+import '../../area_played.dart';
+import '../../../widgets/button_spriteIO.dart';
+import '../../../widgets/button_spriteSlot.dart';
 
 class PiramideFlame extends FlameGame {
   List<buttonSpriteSlot> numberSlot = [];

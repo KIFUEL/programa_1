@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
-import 'Activities/piramide_flame.dart';
+import 'Activities/Rompe1/piramide_flame.dart';
 
 class PlayArea extends RectangleComponent with HasGameReference<PiramideFlame> {
   final Size pantalla;

@@ -1,4 +1,9 @@
-import 'package:aplicacion_final_1/screens/Activities/piramide_screen.dart';
+
+import 'package:aplicacion_final_1/screens/Activities/Rompe1/piramide_screen.dart';
+import 'package:aplicacion_final_1/screens/Activities/Rompe2/multi_Screen.dart';
+import 'package:aplicacion_final_1/screens/Activities/Rompe3/Rompe3_Screen.dart';
+import 'package:aplicacion_final_1/screens/Activities/Rompe4/Rompe4_Screen.dart';
+import 'package:aplicacion_final_1/screens/Activities/Rompe5/Rompe5_Screen.dart';
 import 'package:flutter/material.dart';
 
 class CustomCardType1 extends StatelessWidget {
@@ -39,15 +44,35 @@ class CustomCardType1 extends StatelessWidget {
             ],
           ),
           onTap: () => {
-            if (tipo == 'piramide')
-              {
+            if (tipo == 'piramide'){
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => const PiramideScreen()))
               },
-            if (tipo == 'perros') {print(tipo)},
-            if (tipo == 'hexagonos') {print(tipo)},
+            if (tipo == 'Multiplicacion') {
+              Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const MultiScreen()))
+            },
+            if (tipo == 'Rompe3') {
+              Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Rompe3Screen()))
+            },
+            if (tipo == 'Rompe4') {
+              Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Rompe4Screen()))
+            },
+            if (tipo == 'Rompe5') {Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Rompe5Screen()))
+                        },
           },
           onLongPress: () => {},
         ),
