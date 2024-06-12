@@ -33,4 +33,7 @@ class MultiFlame extends FlameGame{
             world.add(multiplicacion);
 
 
+            
+
+
           }}
